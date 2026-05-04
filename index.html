@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verta Cloud Technologies | MindSpark CodeForge</title>
+    <title>Verta Cloud Technologies | Enterprise Cloud Consulting & IT Solutions</title>
+    <meta name="description" content="Verta Cloud Technologies provides enterprise cloud consulting, system integration, backend engineering, middleware architecture, and IT training solutions." />
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -12,9 +14,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
                     colors: {
                         'verta-navy': '#001D3A',
                         'verta-sky': '#009DFF',
@@ -32,511 +32,650 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .aesthetic-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .aesthetic-card:hover { transform: translateY(-5px); border-color: #009DFF; }
 
-        .aesthetic-card {
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        .nav-link {
+            color: white;
+            transition: all 0.2s ease;
+            margin: 0 12px;
+            width: calc(100% - 24px);
+            border-radius: 12px;
         }
-        
-        @media (min-width: 768px) {
-            .aesthetic-card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.1);
-                border-color: rgba(255, 184, 0, 0.3);
-            }
+        .nav-link.active {
+            background-color: #009DFF;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 157, 255, 0.3);
         }
+        .nav-link:hover:not(.active) { background-color: rgba(255, 255, 255, 0.05); }
 
-        .blur-bg {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-gradient {
-            background: radial-gradient(circle at top right, rgba(255, 184, 0, 0.05), transparent),
-                        radial-gradient(circle at bottom left, rgba(0, 163, 255, 0.05), transparent);
-        }
-
-        .bg-grid {
-            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
-            background-size: 40px 40px;
-            mask-image: linear-gradient(to bottom, white, transparent);
-        }
+        section { display: none; }
+        section.active-section { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="bg-[#FCFDFF] text-verta-navy font-sans antialiased overflow-x-hidden">
 
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
-            
-            <div class="flex items-center space-x-3 self-start md:self-center">
-                <img src="Logo.png" alt="Verta Cloud Logo" class="h-23 md:h-32 w-auto object-contain">
-            </div>
+    <!-- Mobile Header -->
+    <header class="lg:hidden bg-white border-b p-4 sticky top-0 z-50 flex justify-between items-center">
+        <img src="images/logo.png" alt="Logo" class="h-10">
+        <button onclick="toggleMobileMenu()" class="text-2xl text-verta-navy"><i class="fas fa-bars"></i></button>
+    </header>
 
-            <div class="bg-gray-100 p-1 rounded-full flex items-center w-full md:w-auto">
-                <button onclick="switchPortal('consulting')" id="tab-consulting" class="flex-1 md:px-8 py-2.5 rounded-full text-sm font-bold transition-all duration-300 bg-verta-navy text-white shadow-md">
-                    IT Consulting
-                </button>
-                <button onclick="switchPortal('courses')" id="tab-courses" class="flex-1 md:px-8 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 text-gray-500 hover:text-verta-navy">
-                    IT Courses
-                </button>
-            </div>
-
-            <div class="hidden lg:block">
-                <a href="#contact" class="bg-verta-navy text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:scale-105 transition-transform inline-block">Get in Touch</a>
-            </div>
-        </div>
-    </nav>
-
-    <main>
+    <div class="flex min-h-screen">
         
-        <header class="relative bg-white pt-16 pb-12 md:py-32 px-6 text-center overflow-hidden">
-            <div class="max-w-5xl mx-auto relative z-10">
-                <span id="hero-badge" class="inline-block bg-verta-sky/10 text-verta-sky font-bold text-xs md:text-sm px-5 py-2 rounded-full mb-6 tracking-wide border border-verta-sky/20">
-                    Enterprise Cloud Consulting
-                </span>
-                
-                <h1 id="hero-title" class="text-4xl md:text-7xl font-extrabold text-verta-navy mb-8 tracking-tighter leading-tight md:leading-none">
-                    Next-Gen Infrastructure. <br class="hidden md:block"> <span class="gradient-spark">Global Standards.</span>
-                </h1>
-                
-                <p id="hero-desc" class="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
-                    Verta Cloud delivers robust architecture and digital strategy to help your enterprise scale with zero friction.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                    <button 
-                        onclick="toggleModal()" 
-                        class="w-full sm:w-auto bg-verta-navy text-white px-10 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:bg-verta-navy/95 hover:scale-[1.02] transition active:scale-95">Request Proposal
-                    </button>
-</div>
-            </div>
+        <!-- SIDEBAR (Fixed w-64) -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-verta-navy text-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col shadow-2xl">
             
-            <div class="absolute inset-0 opacity-10 pointer-events-none">
-                <div class="absolute w-96 h-96 bg-verta-sky rounded-full -top-20 -left-20 filter blur-3xl"></div>
-                <div class="absolute w-96 h-96 bg-spark-amber rounded-full bottom-0 -right-20 filter blur-3xl"></div>
-            </div>
-        </header>
-
-        <section class="py-12 bg-white border-y border-gray-50 px-6">
-            <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div>
-                    <div class="text-3xl md:text-4xl font-extrabold text-verta-navy">50+</div>
-                    <div class="text-[10px] uppercase tracking-widest text-verta-sky font-bold mt-1">Live Projects</div>
-                </div>
-                <div>
-                    <div class="text-3xl md:text-4xl font-extrabold text-verta-navy">15+</div>
-                    <div class="text-[10px] uppercase tracking-widest text-verta-sky font-bold mt-1">Enterprise Clients</div>
-                </div>
-                <div>
-                    <div class="text-3xl md:text-4xl font-extrabold text-verta-navy">98%</div>
-                    <div class="text-[10px] uppercase tracking-widest text-verta-sky font-bold mt-1">Success Rate</div>
-                </div>
-                <div>
-                    <div class="text-3xl md:text-4xl font-extrabold text-verta-navy">24/7</div>
-                    <div class="text-[10px] uppercase tracking-widest text-verta-sky font-bold mt-1">Expert Support</div>
+            <div class="p-4 mt-6 mb-4">
+                <div class="px-3">
+                    <img src="images/logo.png" alt="Verta Cloud Logo" class="w-full h-auto object-contain">
                 </div>
             </div>
-        </section>
 
-        <section id="services-portal" class="py-24 bg-white px-6">
-            <div class="max-w-7xl mx-auto">
+            <nav class="flex-grow space-y-2 overflow-y-auto no-scrollbar">
+                <button onclick="showSection('home', this)" class="nav-link active flex items-center gap-4 px-4 py-3 text-sm font-medium">
+                    <i class="fas fa-home w-5"></i> Home
+                </button>
+                <button onclick="showSection('consulting', this)" class="nav-link flex items-center gap-4 px-4 py-3 text-sm font-medium">
+                    <i class="fas fa-building w-5"></i> IT Consulting
+                </button>
+                <button onclick="showSection('services', this)" class="nav-link flex items-center gap-4 px-4 py-3 text-sm font-medium">
+                    <i class="fas fa-cogs w-5"></i> IT Services
+                </button>
+                <button onclick="showSection('training', this)" class="nav-link flex items-center gap-4 px-4 py-3 text-sm font-medium">
+                    <i class="fas fa-graduation-cap w-5"></i> Training & Courses
+                </button>
+                <button onclick="showSection('internships', this)" class="nav-link flex items-center gap-4 px-4 py-3 text-sm font-medium">
+                    <i class="fas fa-briefcase w-5"></i> Internships
+                </button>
+                <button onclick="showSection('reviews', this)" class="nav-link flex items-center gap-4 px-4 py-3 text-sm font-medium">
+                    <i class="fas fa-star w-5"></i> Reviews
+                </button>
+                <button onclick="showSection('contact', this)" class="nav-link flex items-center gap-4 px-4 py-3 text-sm font-medium">
+                    <i class="fas fa-envelope w-5"></i> Support/Contact
+                </button>
+            </nav>
+
+            <div class="p-6 text-center border-t border-white/5">
+                <p class="text-[9px] text-white/30 font-bold uppercase tracking-widest">© 2026 VERTA CLOUD</p>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-grow lg:ml-64 w-full">
+            
+           <!-- SECTION: HOME -->
+            <section id="home" class="active-section">
                 
-                <div class="max-w-3xl mb-20">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-verta-navy tracking-tighter mb-6">
-                        Enterprise <span class="text-verta-sky">Engineering</span> & Integration
-                    </h2>
-                    <p class="text-xl text-gray-600 font-light leading-relaxed">
-                        Specializing in high-performance middleware, financial system integrations, and resilient backend architecture.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-
-                   <div class="aesthetic-card bg-[#FBFDFF] p-8 rounded-[32px] border border-gray-100 flex flex-col h-full group">
-                        <div class="w-12 h-12 bg-verta-navy text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg shadow-verta-navy/20 group-hover:bg-verta-sky transition-colors">
-                            <i class="fas fa-network-wired"></i>
+                <!-- 1. CLEAN TEXT-DRIVEN HERO AREA -->
+                <header class="relative bg-white pt-28 pb-20 px-8 md:px-20 overflow-hidden">
+                    <div class="max-w-5xl mx-auto relative z-10 text-center md:text-left">
+                        
+                        <span class="inline-block bg-verta-sky/10 text-verta-sky font-bold text-xs px-5 py-2 rounded-full mb-8 border border-verta-sky/20 uppercase tracking-[0.2em]">
+                            Next-Gen Infrastructure & Engineering
+                        </span>
+                        
+                        <h1 class="text-6xl md:text-8xl font-black text-verta-navy tracking-tighter leading-[0.9] mb-10">
+                            Forging <span class="text-verta-sky">Developers.</span><br>
+                            Delivering <span class="gradient-spark">Solutions.</span>
+                        </h1>
+                        
+                        <p class="text-xl md:text-2xl text-gray-600 max-w-3xl leading-relaxed mb-12 font-light">
+                            Verta Cloud Technologies is a dual-force powerhouse. We build resilient enterprise systems for global clients and forge the next generation of elite engineers.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
+                            <button onclick="showSection('consulting', document.querySelector('[onclick*=\'consulting\']'))" class="bg-verta-navy text-white px-12 py-5 rounded-2xl font-bold shadow-2xl hover:-translate-y-1 transition-all">
+                                Enterprise Consulting
+                            </button>
+                            <button onclick="showSection('training', document.querySelector('[onclick*=\'training\']'))" class="border-2 border-verta-navy text-verta-navy px-12 py-5 rounded-2xl font-bold hover:bg-verta-navy hover:text-white transition-all">
+                                View Academy
+                            </button>
                         </div>
-                        
-                        <h3 class="font-bold text-lg mb-4 text-verta-navy min-h-[56px] flex items-center">
-                            Enterprise Integration & Middleware
-                        </h3>
-                        
-                        <ul class="text-sm text-gray-600 space-y-2 mb-6 flex-grow">
-                            <li>• End-to-end System Integration</li>
-                            <li>• Payment & Financial Connectivity</li>
-                            <li>• ISO/XML/JSON Transformation</li>
-                            <li>• Workflow & Process Automation</li>
-                            <li>• Resilient Architecture Design</li>
-                        </ul>
-                    </div>
 
-                    <div class="aesthetic-card bg-[#FBFDFF] p-8 rounded-[32px] border border-gray-100 flex flex-col h-full">
-                        <div class="w-12 h-12 bg-verta-sky text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg shadow-verta-sky/20"><i class="fas fa-server"></i></div>
-                        <h3 class="font-bold text-lg mb-4">Backend Mastery</h3>
-                        <ul class="text-sm text-gray-600 space-y-2 mb-6 flex-grow">
-                            <li>• Java & Spring Boot Dev</li>
-                            <li>• Microservices Architecture</li>
-                            <li>• REST API Ecosystems</li>
-                        </ul>
+                        <!-- Abstract Background Element (Replaces Logo) -->
+                        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-verta-sky/5 rounded-full blur-3xl -z-10"></div>
                     </div>
+                </header>
 
-                    <div class="aesthetic-card bg-[#FBFDFF] p-8 rounded-[32px] border border-gray-100 flex flex-col h-full">
-                        <div class="w-12 h-12 bg-verta-navy text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg shadow-verta-navy/20"><i class="fas fa-exchange-alt"></i></div>
-                        <h3 class="font-bold text-lg mb-4">System Sync</h3>
-                        <ul class="text-sm text-gray-600 space-y-2 mb-6 flex-grow">
-                            <li>• Banking System Connectivity</li>
-                            <li>• Kafka & Event-Driven Logic</li>
-                            <li>• Real-time Data Processing</li>
-                        </ul>
+                <!-- 2. HIGH-CONTRAST STATS BAR -->
+                <div class="py-16 bg-verta-navy text-white px-6">
+                    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                        <div class="group">
+                            <div class="text-5xl font-black text-verta-sky group-hover:scale-110 transition-transform">50+</div>
+                            <div class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mt-2">Live Projects</div>
+                        </div>
+                        <div class="group">
+                            <div class="text-5xl font-black text-verta-sky group-hover:scale-110 transition-transform">15+</div>
+                            <div class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mt-2">Enterprise Clients</div>
+                        </div>
+                        <div class="group">
+                            <div class="text-5xl font-black text-verta-sky group-hover:scale-110 transition-transform">98%</div>
+                            <div class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mt-2">Success Rate</div>
+                        </div>
+                        <div class="group">
+                            <div class="text-5xl font-black text-verta-sky group-hover:scale-110 transition-transform">24/7</div>
+                            <div class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mt-2">Expert Support</div>
+                        </div>
                     </div>
-
-                    <div class="aesthetic-card bg-[#FBFDFF] p-8 rounded-[32px] border border-gray-100 flex flex-col h-full">
-                        <div class="w-12 h-12 bg-verta-sky text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg shadow-verta-sky/20"><i class="fas fa-database"></i></div>
-                        <h3 class="font-bold text-lg mb-4">Data Engineering</h3>
-                        <ul class="text-sm text-gray-600 space-y-2 mb-6 flex-grow">
-                            <li>• MongoDB Optimization</li>
-                            <li>• Large Data Chunking</li>
-                            <li>• Schema Design & Tuning</li>
-                        </ul>
-                    </div>
-
-                    <div class="aesthetic-card bg-[#FBFDFF] p-8 rounded-[32px] border border-gray-100 flex flex-col h-full">
-                        <div class="w-12 h-12 bg-verta-navy text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg shadow-verta-navy/20"><i class="fas fa-bolt"></i></div>
-                        <h3 class="font-bold text-lg mb-4">Resiliency Eng.</h3>
-                        <ul class="text-sm text-gray-600 space-y-2 mb-6 flex-grow">
-                            <li>• Load & Stress Handling</li>
-                            <li>• High Availability Design</li>
-                            <li>• Production Debugging</li>
-                        </ul>
-                    </div>
-
-                    <div class="aesthetic-card bg-[#FBFDFF] p-8 rounded-[32px] border border-gray-100 flex flex-col h-full">
-                        <div class="w-12 h-12 bg-verta-sky text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg shadow-verta-sky/20"><i class="fas fa-vial"></i></div>
-                        <h3 class="font-bold text-lg mb-4">Quality & Testing</h3>
-                        <ul class="text-sm text-gray-600 space-y-2 mb-6 flex-grow">
-                            <li>• Automation Frameworks</li>
-                            <li>• Integration Testing</li>
-                            <li>• QA Process Optimization</li>
-                        </ul>
-                    </div>
-
-                    <div class="aesthetic-card bg-[#FBFDFF] p-8 rounded-[32px] border border-gray-100 flex flex-col h-full">
-                        <div class="w-12 h-12 bg-verta-navy text-white rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg shadow-verta-navy/20"><i class="fas fa-laptop-code"></i></div>
-                        <h3 class="font-bold text-lg mb-4">Custom Software</h3>
-                        <ul class="text-sm text-gray-600 space-y-2 mb-6 flex-grow">
-                            <li>• Full-stack Enterprise Apps</li>
-                            <li>• Startup MVP Development</li>
-                            <li>• Internal Dashboards</li>
-                        </ul>
-                    </div>
-
-                    <div class="aesthetic-card bg-[#FBFDFF] p-8 rounded-[32px] border border-gray-100 flex flex-col h-full">
-                        <div class="w-12 h-12 bg-spark-amber text-verta-navy rounded-xl flex items-center justify-center text-xl mb-6 shadow-lg shadow-spark-amber/20"><i class="fas fa-graduation-cap"></i></div>
-                        <h3 class="font-bold text-lg mb-4">Corporate Workshops</h3>
-                        <ul class="text-sm text-gray-600 space-y-2 mb-6 flex-grow">
-                            <li>• Upskilling for IT Teams</li>
-                            <li>• Integration Platform Training</li>
-                            <li>• Project-Based Coaching</li>
-                        </ul>
-                    </div>
-
                 </div>
 
-                <div class="mt-24 p-12 bg-verta-navy rounded-[40px] text-white relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-verta-sky opacity-20 filter blur-[80px]"></div>
-                    <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h2 class="text-3xl font-bold mb-6 italic">Why <span class="text-spark-amber">Verta Cloud</span> Technologies?</h2>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-verta-sky mt-1"></i>
-                                    <p class="text-sm opacity-80">Deep expertise in enterprise integration</p>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-verta-sky mt-1"></i>
-                                    <p class="text-sm opacity-80">Strong backend engineering DNA</p>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-verta-sky mt-1"></i>
-                                    <p class="text-sm opacity-80">Focus on scale & peak performance</p>
-                                </div>
-                                <div class="flex items-start gap-3">
-                                    <i class="fas fa-check-circle text-verta-sky mt-1"></i>
-                                    <p class="text-sm opacity-80">Real-world problem-solving approach</p>
-                                </div>
+                <!-- 3. TECHNOLOGY ECOSYSTEM -->
+                <section class="py-20 bg-[#FBFDFF] border-b border-gray-100 px-8">
+                    <div class="max-w-6xl mx-auto text-center">
+                        <p class="text-[11px] font-black text-gray-400 uppercase tracking-[0.4em] mb-12">Our Technology DNA</p>
+                        <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">
+                            <i class="fab fa-aws text-5xl"></i>
+                            <i class="fab fa-java text-5xl"></i>
+                            <i class="fab fa-react text-5xl"></i>
+                            <i class="fab fa-docker text-5xl"></i>
+                            <i class="fab fa-python text-5xl"></i>
+                            <span class="font-black text-2xl tracking-tighter">KAFKA</span>
+                            <span class="font-black text-2xl tracking-tighter">MONGO DB</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. LEADERSHIP SECTION (The only image on Home) -->
+                <div class="py-28 px-8 md:px-20 bg-white">
+                    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-20">
+                        <div class="relative shrink-0">
+                            <div class="absolute -bottom-6 -right-6 w-full h-full border-2 border-spark-amber rounded-[48px] -z-0"></div>
+                            <img src="images/FounderCEO.jpeg" class="relative z-10 w-72 h-96 object-cover rounded-[48px] shadow-2xl border-8 border-white">
+                        </div>
+                        <div class="text-center md:text-left">
+                            <span class="text-verta-sky font-black text-xs uppercase tracking-[0.3em] block mb-4">Leadership & Vision</span>
+                            <h2 class="text-4xl md:text-5xl font-extrabold text-verta-navy mb-8 tracking-tighter leading-tight">
+                                Bridging Industry <span class="text-spark-amber">Gaps</span>.
+                            </h2>
+                            <div class="relative">
+                                <i class="fas fa-quote-left absolute -top-8 -left-10 text-7xl text-gray-50 opacity-50"></i>
+                                <p class="text-xl md:text-2xl italic text-gray-500 mb-10 leading-relaxed relative z-10">
+                                    "At Verta Cloud, we don't just solve complex infrastructure problems for enterprises; we ensure the next wave of engineers is ready to take the mantle."
+                                </p>
                             </div>
-                        </div>
-                        <div class="hidden md:block">
-                            <div class="text-right">
-                                <span class="text-6xl font-black text-white/10 uppercase tracking-tighter">Enterprise<br>Reliability</span>
+                            <div class="space-y-1">
+                                <div class="font-bold text-verta-navy text-3xl tracking-tight">Shirisha Maddala</div>
+                                <div class="text-verta-sky font-bold text-sm uppercase tracking-widest">CEO & Lead Architect</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="courses-portal" class="hidden py-24 blur-bg px-6">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-20 text-center md:text-left">
-                    <img src="MindSparkCodeForge.png" alt="MindSpark CodeForge Logo" class="h-60 md:h-65 object-contain">
+            <!-- SECTION: IT CONSULTING (Enterprise Engineering) -->
+            <section id="consulting" class="py-24 px-8 md:px-20">
+                <div class="max-w-7xl mx-auto">
+                    <h2 class="text-4xl font-extrabold mb-12">Enterprise <span class="text-verta-sky">Engineering</span></h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- All Original Consulting Cards -->
+                        <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm">
+                            <div class="w-12 h-12 bg-verta-navy text-white rounded-xl flex items-center justify-center text-xl mb-6"><i class="fas fa-network-wired"></i></div>
+                            <h3 class="font-bold text-lg mb-4">Enterprise Integration & Middleware</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li>• End-to-end System Integration</li>
+                                <li>• Payment & Financial Connectivity</li>
+                                <li>• ISO/XML/JSON Transformation</li>
+                            </ul>
+                        </div>
+                        <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm">
+                            <div class="w-12 h-12 bg-verta-sky text-white rounded-xl flex items-center justify-center text-xl mb-6"><i class="fas fa-exchange-alt"></i></div>
+                            <h3 class="font-bold text-lg mb-4">System Sync</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li>• Banking System Connectivity</li>
+                                <li>• Kafka & Event-Driven Logic</li>
+                                <li>• Real-time Data Processing</li>
+                            </ul>
+                        </div>
+                        <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm">
+                            <div class="w-12 h-12 bg-verta-navy text-white rounded-xl flex items-center justify-center text-xl mb-6"><i class="fas fa-bolt"></i></div>
+                            <h3 class="font-bold text-lg mb-4">Resiliency Engineering</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li>• Load & Stress Handling</li>
+                                <li>• High Availability Design</li>
+                                <li>• Production Debugging</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: IT SERVICES -->
+            <section id="services" class="py-24 px-8 md:px-20 bg-gray-50">
+                <div class="max-w-7xl mx-auto">
+                    <h2 class="text-4xl font-extrabold mb-12">Core IT <span class="text-verta-sky">Services</span></h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm">
+                            <div class="w-12 h-12 bg-verta-sky text-white rounded-xl flex items-center justify-center text-xl mb-6"><i class="fas fa-server"></i></div>
+                            <h3 class="font-bold text-lg mb-4">Backend Mastery</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li>• Java & Spring Boot Dev</li>
+                                <li>• Microservices Architecture</li>
+                                <li>• REST API Ecosystems</li>
+                            </ul>
+                        </div>
+                        <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm">
+                            <div class="w-12 h-12 bg-verta-navy text-white rounded-xl flex items-center justify-center text-xl mb-6"><i class="fas fa-database"></i></div>
+                            <h3 class="font-bold text-lg mb-4">Data Engineering</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li>• MongoDB Optimization</li>
+                                <li>• Large Data Chunking</li>
+                                <li>• Schema Design & Tuning</li>
+                            </ul>
+                        </div>
+                        <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm">
+                            <div class="w-12 h-12 bg-verta-sky text-white rounded-xl flex items-center justify-center text-xl mb-6"><i class="fas fa-laptop-code"></i></div>
+                            <h3 class="font-bold text-lg mb-4">Custom Software</h3>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li>• Full-stack Enterprise Apps</li>
+                                <li>• Startup MVP Development</li>
+                                <li>• Internal Dashboards</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: TRAINING & COURSES -->
+            <section id="training" class="py-20 px-8 md:px-16 blur-bg">
+                <div class="max-w-7xl mx-auto">
+                    <!-- Header -->
                     <div class="text-center mb-20">
+                        <img src="images/MindSparkCodeForge.png" alt="CodeForge Logo" class="h-32 mx-auto mb-6">
                         <h2 class="text-4xl md:text-6xl font-extrabold text-verta-navy tracking-tighter">
-                            MindSpark <span class="text-spark-amber">CodeForge</span>
+                            MindSpark <span class="text-spark-amber">CodeForge</span> Academy
                         </h2>
-                        <p class="text-xl text-gray-700 font-light mt-4 max-w-2xl mx-auto">
+                        <p class="text-xl text-gray-700 font-light mt-4 max-w-3xl mx-auto">
                             Elite career tracks designed to take you from foundational logic to enterprise-grade system architecture.
                         </p>
                     </div>
-                </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Courses Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                    <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 flex flex-col h-full group">
-                        <div class="w-14 h-14 bg-spark-amber/10 text-spark-amber rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-inner">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-4 text-verta-navy min-h-[60px] flex items-center">Programming Foundations</h3>
-                        <ul class="text-sm text-gray-600 space-y-3 flex-grow">
-                            <li>• Coding Essentials & Logic</li>
-                            <li>• C/C++ Programming & OOPs</li>
-                            <li>• Python Scripting</li>
-                        </ul>
-                        <div class="pt-6 mt-6 border-t border-gray-50 text-[10px] font-bold text-gray-400 uppercase">Beginner</div>
-                    </div>
-
-                    <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 flex flex-col h-full group">
-                        <div class="w-14 h-14 bg-verta-navy/5 text-verta-navy rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-inner">
-                            <i class="fas fa-microchip"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-4 text-verta-navy min-h-[60px] flex items-center">Core Computer Science</h3>
-                        <ul class="text-sm text-gray-600 space-y-3 flex-grow">
-                            <li>• DSA & Advanced DP Patterns</li>
-                            <li>• Operating Systems & Networks</li>
-                            <li>• Database Systems (SQL/NoSQL)</li>
-                        </ul>
-                        <div class="pt-6 mt-6 border-t border-gray-50 text-[10px] font-bold text-gray-400 uppercase">Engineering Core</div>
-                    </div>
-
-                    <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 flex flex-col h-full group">
-                        <div class="w-14 h-14 bg-verta-sky/10 text-verta-sky rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-inner">
-                            <i class="fab fa-react text-verta-sky"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-4 text-verta-navy min-h-[60px] flex items-center">Full Stack Development</h3>
-                        <ul class="text-sm text-gray-600 space-y-3 flex-grow">
-                            <li>• MERN Stack (Mongo, Express, React, Node)</li>
-                            <li>• Java Backend & Spring Boot</li>
-                            <li>• REST APIs & Microservices</li>
-                        </ul>
-                        <div class="pt-6 mt-6 border-t border-gray-50 text-[10px] font-bold text-gray-400 uppercase">Development</div>
-                    </div>
-
-                    <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 flex flex-col h-full group">
-                        <div class="w-14 h-14 bg-verta-sky/10 text-verta-sky rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-inner">
-                            <i class="fas fa-cloud"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-4 text-verta-navy min-h-[60px] flex items-center">DevOps & Cloud</h3>
-                        <ul class="text-sm text-gray-600 space-y-3 flex-grow">
-                            <li>• Docker & Containerization</li>
-                            <li>• CI/CD with Jenkins</li>
-                            <li>• AWS & Azure Fundamentals</li>
-                        </ul>
-                        <div class="pt-6 mt-6 border-t border-gray-50 text-[10px] font-bold text-gray-400 uppercase">Infrastructure</div>
-                    </div>
-
-                    <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 flex flex-col h-full group">
-                        <div class="w-14 h-14 bg-verta-navy/5 text-verta-navy rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-inner">
-                            <i class="fas fa-project-diagram"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-4 text-verta-navy min-h-[60px] flex items-center">Integration & Messaging</h3>
-                        <ul class="text-sm text-gray-600 space-y-3 flex-grow">
-                            <li>• Kafka & Zookeeper Mastery</li>
-                            <li>• Event-Driven Architecture</li>
-                            <li>• Enterprise Messaging Systems</li>
-                        </ul>
-                        <div class="pt-6 mt-6 border-t border-gray-50 text-[10px] font-bold text-gray-400 uppercase">Specialty</div>
-                    </div>
-
-                    <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 flex flex-col h-full group">
-                        <div class="w-14 h-14 bg-spark-amber/10 text-spark-amber rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-inner">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h3 class="font-bold text-xl mb-4 text-verta-navy min-h-[60px] flex items-center">Data & AI Track</h3>
-                        <ul class="text-sm text-gray-600 space-y-3 flex-grow">
-                            <li>• Basic Data Science (Pandas/NumPy)</li>
-                            <li>• AI & Machine Learning Basics</li>
-                            <li>• Python Intelligence Models</li>
-                        </ul>
-                        <div class="pt-6 mt-6 border-t border-gray-50 text-[10px] font-bold text-gray-400 uppercase">Intelligence</div>
-                    </div>
-
-                    <div class="aesthetic-card bg-verta-navy p-10 rounded-[40px] flex flex-col lg:col-span-3 relative overflow-hidden group shadow-2xl shadow-verta-navy/30 border-t-4 border-spark-amber">
-                        <div class="absolute -right-20 -bottom-20 opacity-10 text-[200px] text-white transform -rotate-12 pointer-events-none">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        
-                        <div class="relative z-10 flex flex-col md:flex-row items-center gap-10">
-                            <div class="w-24 h-24 bg-spark-amber text-verta-navy rounded-3xl flex items-center justify-center text-4xl shadow-xl shrink-0 animate-pulse">
-                                <i class="fas fa-briefcase"></i>
+                        <!-- NEW COURSE 1: THE MONOLITH ENGINEER (Elite Track) -->
+                        <div class="aesthetic-card bg-verta-navy p-8 rounded-[40px] border-t-8 border-verta-sky shadow-2xl text-white relative overflow-hidden lg:col-span-2">
+                            <div class="absolute right-0 bottom-0 opacity-10 p-8 text-[120px] pointer-events-none">
+                                <i class="fas fa-cubes"></i>
                             </div>
-                            
-                            <div class="flex-grow text-center md:text-left">
-                                <span class="inline-block bg-spark-amber/20 text-spark-amber text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-[0.2em] mb-4">Ultimate Mastery Track</span>
-                                <h3 class="font-bold text-3xl text-white mb-3">Career & Industry Readiness</h3>
-                                <p class="text-white/70 text-lg font-light mb-6">The definitive transition from a student to a high-value industry professional.</p>
+                            <div class="relative z-10 flex flex-col md:flex-row gap-10 items-start">
+                                <div class="flex-grow">
+                                    <span class="bg-verta-sky/20 text-verta-sky font-black text-[10px] px-4 py-1 rounded-full uppercase tracking-[0.2em] mb-6 inline-block border border-verta-sky/30">Mastery Track</span>
+                                    <h3 class="text-3xl font-extrabold mb-2 italic">The Monolith Engineer</h3>
+                                    <p class="text-verta-sky font-semibold text-lg mb-6 tracking-wide">Architecting Enterprise Scale: A Full-Stack Systems Course</p>
+                                    <p class="text-white/60 text-sm mb-8 max-w-xl">A deep-dive into high-performance architecture. Learn the core technologies used by global giants to manage massive scale and resilient data flow.</p>
+                                    
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+                                        <div class="flex items-center gap-2 text-xs font-bold text-white/80"><i class="fas fa-check text-verta-sky"></i> JAVA & TOMCAT</div>
+                                        <div class="flex items-center gap-2 text-xs font-bold text-white/80"><i class="fas fa-check text-verta-sky"></i> MONGO DB</div>
+                                        <div class="flex items-center gap-2 text-xs font-bold text-white/80"><i class="fas fa-check text-verta-sky"></i> KAFKA & ZOOKEEPER</div>
+                                        <div class="flex items-center gap-2 text-xs font-bold text-white/80"><i class="fas fa-check text-verta-sky"></i> APACHE CAMEL</div>
+                                    </div>
+                                    <button onclick="toggleModal()" class="bg-verta-sky text-white px-8 py-3 rounded-xl font-bold hover:bg-white hover:text-verta-navy transition-all">Enroll for Elite Track</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NEW COURSE 2: PROGRAMMING FUNDAMENTALS -->
+                        <div class="aesthetic-card bg-white p-8 rounded-[40px] border-b-8 border-spark-amber shadow-xl group">
+                            <div class="w-16 h-16 bg-spark-amber/10 text-spark-amber rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:rotate-12 transition-transform">
+                                <i class="fas fa-terminal"></i>
+                            </div>
+                            <h3 class="font-bold text-2xl mb-2 text-verta-navy">Programming Fundamentals</h3>
+                            <p class="text-gray-500 text-sm mb-6 font-medium tracking-wide italic">A 45-Minute Demo of Your Coding Future</p>
+                            <ul class="text-sm text-gray-600 space-y-4 mb-8">
+                                <li class="flex items-center gap-3"><i class="fas fa-code text-spark-amber"></i> Logic & Variables</li>
+                                <li class="flex items-center gap-3"><i class="fas fa-shapes text-spark-amber"></i> Functions & Flow</li>
+                                <li class="flex items-center gap-3"><i class="fas fa-lightbulb text-spark-amber"></i> Problem-Solving DNA</li>
+                                <li class="flex items-center gap-3"><i class="fas fa-laptop-code text-spark-amber"></i> Building Your First App</li>
+                            </ul>
+                            <button onclick="toggleModal()" class="w-full py-4 border-2 border-spark-amber text-spark-amber font-bold rounded-2xl hover:bg-spark-amber hover:text-white transition-all">Join the Demo</button>
+                        </div>
+
+                        <!-- AI Track -->
+                        <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm">
+                            <div class="w-14 h-14 bg-spark-amber/10 text-spark-amber rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-inner">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3 class="font-bold text-xl mb-4 text-verta-navy">AI & Gen Engineering</h3>
+                            <ul class="text-sm text-gray-600 space-y-3 mb-6">
+                                <li>• LLMs & Prompt Engineering</li>
+                                <li>• LangChain & Vector Databases</li>
+                                <li>• AI Chatbot Deployment</li>
+                            </ul>
+                        </div>
+
+                        <!-- Cyber Track -->
+                        <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm">
+                            <div class="w-14 h-14 bg-verta-navy/5 text-verta-navy rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-inner">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <h3 class="font-bold text-xl mb-4 text-verta-navy">Cybersecurity</h3>
+                            <ul class="text-sm text-gray-600 space-y-3 mb-6">
+                                <li>• Pen-Testing & SOC</li>
+                                <li>• Cloud Security Audits</li>
+                                <li>• Network Defense Strategies</li>
+                            </ul>
+                        </div>
+
+                        <!-- Big Data Track -->
+                        <div class="aesthetic-card bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm">
+                            <div class="w-14 h-14 bg-verta-sky/10 text-verta-sky rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-inner">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="font-bold text-xl mb-4 text-verta-navy">Big Data & Analytics</h3>
+                            <ul class="text-sm text-gray-600 space-y-3 mb-6">
+                                <li>• Snowflake & Data Warehousing</li>
+                                <li>• Hadoop & Spark Processing</li>
+                                <li>• Data Visualization Mastery</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: INTERNSHIPS -->
+            <section id="internships" class="py-20 px-8 md:px-16">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Header -->
+                    <div class="mb-16">
+                        <h2 class="text-4xl md:text-5xl font-extrabold text-verta-navy tracking-tighter mb-4">
+                            Industry-Ready <span class="text-verta-sky">Internship</span> Program 2026
+                        </h2>
+                        <p class="text-xl text-gray-600 font-light max-w-3xl">
+                            Bridging the gap between academic theory and industrial reality. We offer specialized projects for 
+                            <span class="font-semibold text-verta-navy">ECE</span> and 
+                            <span class="font-semibold text-verta-navy">CSE</span> students.
+                        </p>
+                    </div>
+
+                    <!-- The Dual Track Grid -->
+                    <div class="grid lg:grid-cols-2 gap-8 mb-16">
+                        
+                        <!-- ECE TRACK CARD -->
+                        <div class="bg-white border-2 border-spark-amber/20 p-10 rounded-[40px] shadow-sm relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-6 opacity-10 text-6xl text-spark-amber group-hover:scale-110 transition-transform">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <span class="bg-spark-amber/10 text-spark-amber font-bold text-[10px] px-4 py-1 rounded-full uppercase tracking-widest mb-6 inline-block">ECE Specialization</span>
+                            <h3 class="text-2xl font-bold text-verta-navy mb-6">IoT & Embedded Cloud</h3>
+                            <ul class="space-y-4 mb-10">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-spark-amber mt-1"></i>
+                                    <span class="text-gray-700"><strong>Smart Energy Metering:</strong> Integrating sensors with AWS IoT Core.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-spark-amber mt-1"></i>
+                                    <span class="text-gray-700"><strong>MQTT Protocol:</strong> Designing resilient communication for remote sensors.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-spark-amber mt-1"></i>
+                                    <span class="text-gray-700"><strong>Signal Processing:</strong> Cloud-based analysis of real-time hardware data.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-spark-amber mt-1"></i>
+                                    <span class="text-gray-700"><strong>FPGA & Cloud:</strong> Developing hardware acceleration for digital systems.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- CSE TRACK CARD -->
+                        <div class="bg-verta-navy p-10 rounded-[40px] shadow-2xl relative overflow-hidden group text-white">
+                            <div class="absolute top-0 right-0 p-6 opacity-10 text-6xl text-verta-sky group-hover:scale-110 transition-transform">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <span class="bg-verta-sky/20 text-verta-sky font-bold text-[10px] px-4 py-1 rounded-full uppercase tracking-widest mb-6 inline-block">CSE Specialization</span>
+                            <h3 class="text-2xl font-bold mb-6">Full-Stack & Architecture</h3>
+                            <ul class="space-y-4 mb-10">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-verta-sky mt-1"></i>
+                                    <span class="text-white/80"><strong>Banking APIs:</strong> Developing secure, high-performance financial interfaces.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-verta-sky mt-1"></i>
+                                    <span class="text-white/80"><strong>Kafka Messaging:</strong> Real-time data streaming and event-driven architecture.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-verta-sky mt-1"></i>
+                                    <span class="text-white/80"><strong>MERN Stack:</strong> Building scalable enterprise portals from scratch.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-verta-sky mt-1"></i>
+                                    <span class="text-white/80"><strong>Cloud DevOps:</strong> Master Docker, Kubernetes, and CI/CD pipelines.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- Benefits Summary -->
+                    <div class="bg-[#F1F5F9] rounded-[40px] p-12 flex flex-col md:flex-row justify-between items-center gap-8">
+                        <div class="text-center md:text-left">
+                            <h4 class="text-2xl font-bold text-verta-navy mb-2">Ready to Forge Your Career?</h4>
+                            <p class="text-gray-600 italic">Limited slots available for the upcoming cohort. Certification included.</p>
+                        </div>
+                        <button onclick="toggleModal()" class="bg-verta-navy text-white px-12 py-4 rounded-2xl font-bold shadow-xl hover:bg-verta-sky transition-all hover:scale-105">
+                            Apply for Internship
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION: REVIEWS -->
+            <section id="reviews" class="py-24 px-8 md:px-20 bg-[#F8FAFC]">
+                <div class="max-w-7xl mx-auto">
+                    
+                    <!-- Header -->
+                    <div class="text-center mb-20">
+                        <span class="text-verta-sky font-black text-xs uppercase tracking-[0.3em] block mb-4">Testimonials</span>
+                        <h2 class="text-4xl md:text-6xl font-extrabold text-verta-navy tracking-tighter">
+                            Voices of <span class="gradient-spark">Success.</span>
+                        </h2>
+                        <p class="text-xl text-gray-600 mt-6 max-w-2xl mx-auto font-light">
+                            Trusted by global enterprises and the next generation of world-class engineers.
+                        </p>
+                    </div>
+
+                    <!-- Reviews Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        
+                        <!-- REVIEW 1: ENTERPRISE CLIENT -->
+                        <div class="aesthetic-card bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="flex text-spark-amber gap-1 mb-6">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-lg text-gray-700 leading-relaxed italic mb-8">
+                                    "The middleware integration provided by Verta Cloud was a game-changer for our financial systems. Their expertise in Kafka and system resiliency allowed us to scale our transaction volume by 300% without a second of downtime."
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-verta-navy rounded-full flex items-center justify-center text-white font-bold">CT</div>
+                                <div>
+                                    <p class="font-bold text-verta-navy">Chief Technology Officer</p>
+                                    <p class="text-sm text-verta-sky font-medium uppercase tracking-widest">>MindSpark CodeForge Alumnus</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REVIEW 2: ACADEMY ALUMNI -->
+                        <div class="aesthetic-card bg-verta-navy p-10 rounded-[40px] shadow-2xl flex flex-col justify-between text-white">
+                            <div>
+                                <div class="flex text-spark-amber gap-1 mb-6">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-lg text-white/80 leading-relaxed italic mb-8">
+                                    "MindSpark CodeForge isn't just a training center; it's a launchpad. The 'Monolith Engineer' course gave me the deep architectural knowledge I needed to transition from a junior developer to a Senior System Architect."
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-spark-amber rounded-full flex items-center justify-center text-verta-navy font-bold">SM</div>
+                                <div>
+                                    <p class="font-bold">Siddharth Mehta</p>
+                                    <p class="text-sm text-verta-sky font-medium uppercase tracking-widest">MindSpark CodeForge Alumnus</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REVIEW 3: ECE INTERN -->
+                        <div class="aesthetic-card bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm flex flex-col justify-between">
+                            <div>
+                                <div class="flex text-spark-amber gap-1 mb-6">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-lg text-gray-700 leading-relaxed italic mb-8">
+                                    "As an ECE student, finding an internship that combined hardware with cloud was difficult. Verta Cloud’s IoT project on Smart Energy Metering was the perfect bridge. I learned more here about real-world sensors and AWS than I did in my entire semester."
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-verta-navy font-bold">AP</div>
+                                <div>
+                                    <p class="font-bold text-verta-navy">Ananya P.</p>
+                                    <p class="text-sm text-verta-sky font-medium uppercase tracking-widest">ECE Intern 2024</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REVIEW 4: STARTUP FOUNDER -->
+                        <div class="aesthetic-card bg-white p-10 rounded-[40px] border border-gray-100 shadow-sm flex flex-col justify-between border-l-8 border-spark-amber">
+                            <div>
+                                <div class="flex text-spark-amber gap-1 mb-6">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-lg text-gray-700 leading-relaxed italic mb-8">
+                                    "They didn't just build our MVP; they built a scalable foundation. Verta Cloud's engineering DNA is evident in every line of code. They are our go-to partners for any backend engineering challenges."
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-verta-sky rounded-full flex items-center justify-center text-white font-bold">RS</div>
+                                <div>
+                                    <p class="font-bold text-verta-navy">Rahul Sharma</p>
+                                    <p class="text-sm text-verta-sky font-medium uppercase tracking-widest">MindSpark CodeForge Alumnus</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                  <!-- GOOGLE REVIEWS CTA -->
+                    <div class="mt-20 text-center">
+                        <p class="text-gray-500 mb-6 font-medium">Want to share your experience with us?</p>
+                        
+                        <!-- Use the link from Step 1 or Step 2 below -->
+                        <a href="https://www.google.com/search?q=Verta+Cloud+Technologies#lrd=0x3bcb9738f72a4f4f:0x6b49e06180a0869a,3" 
+                        target="_blank" 
+                        class="inline-flex items-center gap-3 bg-white border border-gray-200 px-8 py-4 rounded-2xl font-bold shadow-sm hover:shadow-md transition-all hover:scale-105">
+                            <img src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" class="w-6 h-6">
+                            Submit a Review on Google
+                        </a>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION: SUPPORT/CONTACT -->
+            <section id="contact" class="py-24 px-8 md:px-20 bg-forge-smoke text-white min-h-screen">
+                <div class="max-w-7xl mx-auto">
+                    <h2 class="text-5xl font-extrabold mb-12">Let's <span class="gradient-spark">Ignite</span> Your Vision.</h2>
+                    
+                    <div class="grid lg:grid-cols-2 gap-16 items-start">
+                        
+                        <!-- Left Side: Contact Details -->
+                        <div class="space-y-10">
+                            <div>
+                                <h3 class="text-2xl font-bold text-spark-amber mb-4">Contact Information</h3>
+                                <p class="text-white/60 text-lg font-light mb-8">Reach out for enterprise consulting, project inquiries, or academic support.</p>
                                 
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                    <div class="flex items-center gap-3 text-white/90">
-                                        <i class="fas fa-check-circle text-spark-amber"></i>
-                                        <span class="text-sm font-medium">Corporate Tools (Git, Jira)</span>
+                                <div class="space-y-6 text-lg">
+                                    <div class="flex items-start gap-4">
+                                        <i class="fas fa-envelope text-spark-amber mt-1 w-6"></i>
+                                        <div>
+                                            <p class="text-sm text-white/40 uppercase tracking-widest font-bold">Email Us</p>
+                                            <p>info@vertacloudtechnologies.com</p>
+                                        </div>
                                     </div>
-                                    <div class="flex items-center gap-3 text-white/90">
-                                        <i class="fas fa-check-circle text-spark-amber"></i>
-                                        <span class="text-sm font-medium">Build & Release Cycles</span>
+                                    
+                                    <div class="flex items-start gap-4">
+                                        <i class="fas fa-phone-alt text-spark-amber mt-1 w-6"></i>
+                                        <div>
+                                            <p class="text-sm text-white/40 uppercase tracking-widest font-bold">Call Us</p>
+                                            <p>+91 8463940085</p>
+                                        </div>
                                     </div>
-                                    <div class="flex items-center gap-3 text-white/90">
-                                        <i class="fas fa-check-circle text-spark-amber"></i>
-                                        <span class="text-sm font-medium">Advanced Design Patterns</span>
+
+                                    <div class="flex items-start gap-4">
+                                        <i class="fas fa-map-marker-alt text-spark-amber mt-1 w-6"></i>
+                                        <div>
+                                            <p class="text-sm text-white/40 uppercase tracking-widest font-bold">Our Location</p>
+                                            <p>Hyderabad, Telangana, India</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="shrink-0">
-                                <a href="#contact" class="inline-block bg-white text-verta-navy font-bold px-10 py-5 rounded-2xl hover:bg-spark-amber hover:text-white transition-all duration-300 shadow-xl hover:-translate-y-1">
-                                    Join the Elite Track
+                            <!-- WhatsApp CTA -->
+                            <div class="bg-white/5 p-8 rounded-[32px] border border-white/10">
+                                <h3 class="text-xl font-bold text-spark-amber mb-6 text-center">Instant Support</h3>
+                                <a href="https://wa.me/918463940085" class="bg-[#25D366] text-white w-full py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-4 hover:scale-[1.03] transition-transform shadow-xl">
+                                    <i class="fab fa-whatsapp text-3xl"></i> WhatsApp Us
                                 </a>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-            </div>
-        </section>
+                        <!-- Right Side: Google Map -->
+                        <div class="w-full h-[500px] rounded-[40px] overflow-hidden border-4 border-white/10 shadow-2xl relative">
+                            <!-- Replace the URL in 'src' below with the one you get from "Embed a map" -->
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.827222623!2d78.4419!3d17.42!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9738f72a4f4f%3A0x6b49e06180a0869a!2sVerta%20Cloud%20Technologies!5e0!3m2!1sen!2sin!4v1714838400000!5m2!1sen!2sin" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
 
-        <section class="py-24 bg-[#FBFDFF] px-6 overflow-hidden">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-                
-                <div class="relative shrink-0">
-                    <div class="absolute -bottom-4 -right-4 w-full h-full border-2 border-spark-amber rounded-[40px] -z-10"></div>
-                    
-                    <div class="w-64 h-80 md:w-80 md:h-[420px] bg-gray-200 rounded-[40px] shadow-2xl overflow-hidden border-8 border-white">
-                        <img src="FounderCEO.jpeg" alt="Shirisha Maddala" class="w-full h-full object-cover">
-                    </div>
-                </div>
-
-                <div class="text-center md:text-left">
-                    <span class="text-verta-sky font-bold text-sm uppercase tracking-widest">Leadership</span>
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-verta-navy mt-2 mb-8 tracking-tighter">
-                        Bridging Industry <span class="text-spark-amber">Gaps</span>.
-                    </h2>
-                    
-                    <div class="relative">
-                        <i class="fas fa-quote-left absolute -top-6 -left-8 text-6xl text-gray-100 -z-10"></i>
-                        <p class="text-gray-700 font-light leading-relaxed text-xl md:text-2xl mb-8 italic relative">
-                            "Verta Cloud and MindSpark CodeForge work in tandem to solve the industry's two biggest problems: complex infrastructure needs and the shortage of ready-to-deploy talent."
-                        </p>
-                    </div>
-
-                    <div class="space-y-1">
-                        <div class="font-bold text-verta-navy text-2xl">Shirisha Maddala</div>
-                        <div class="text-base text-verta-sky font-semibold tracking-wide">CEO & Lead Architect, Verta Cloud Technologies</div>
-                    </div>
-                    
-                    <div class="mt-8 pt-8 border-t border-gray-100 flex justify-center md:justify-start gap-4 text-gray-400">
-                        <a href="#" class="hover:text-verta-navy transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
-                        <a href="#" class="hover:text-verta-navy transition-colors"><i class="fab fa-github text-xl"></i></a>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-    </main>
+        </main>
+    </div>
 
-    <footer id="contact" class="bg-forge-smoke pt-20 pb-10 px-6 text-white">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center mb-16">
-            <div>
-                <h2 class="text-4xl font-extrabold mb-4">Let's <span class="gradient-spark">Ignite</span> Your Vision.</h2>
-                <p class="text-white/60 font-light text-lg mb-8">Contact us for enterprise consulting or career-defining tech training.</p>
-                <div class="space-y-4">
-                    <p class="flex items-center gap-4"><i class="fas fa-envelope text-spark-amber"></i> vertacloudtechnologies@gmail.com</p>
-                    <p class="flex items-center gap-4"><i class="fas fa-phone-alt text-spark-amber"></i> +91 8463940085</p>
-                </div>
-            </div>
-            <div class="bg-white/5 p-8 rounded-3xl border border-white/10 text-center">
-                <h3 class="text-xl font-bold text-spark-amber mb-6">Quick Connect</h3>
-                <a href="https://wa.me/918463940085" class="bg-[#25D366] text-white w-full py-4 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:scale-[1.03] transition-transform">
-                    <i class="fab fa-whatsapp text-2xl"></i> WhatsApp Us
-                </a>
+    <!-- GOOGLE FORM MODAL -->
+    <div id="requestModal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-4xl max-h-[90vh] rounded-[40px] relative overflow-hidden shadow-2xl">
+            <button onclick="toggleModal()" class="absolute top-6 right-6 text-gray-400 hover:text-verta-navy"><i class="fas fa-times text-2xl"></i></button>
+            <div class="h-full overflow-y-auto p-4">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeuXFeSXg2fEiZK6aWgJA6bvNyqLKqbidzF8_0wmNuQmAY4NA/viewform?usp=header" width="100%" height="800" frameborder="0">Loading…</iframe>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto pt-8 border-t border-white/5 text-center text-[11px] font-extralight text-white/30 uppercase tracking-[0.2em]">
-            &copy; 2026 Verta Cloud Technologies Private Limited. All Rights Reserved.
-        </div>
-    </footer>
+    </div>
 
     <script>
-        function switchPortal(portal) {
-            const consultingTab = document.getElementById('tab-consulting');
-            const coursesTab = document.getElementById('tab-courses');
-            const consultingPortal = document.getElementById('services-portal');
-            const coursesPortal = document.getElementById('courses-portal');
-            
-            // Hero Content Elements
-            const badge = document.getElementById('hero-badge');
-            const title = document.getElementById('hero-title');
-            const desc = document.getElementById('hero-desc');
-
-            if (portal === 'courses') {
-                // UI - Switch Tabs
-                coursesTab.className = "flex-1 md:px-8 py-2.5 rounded-full text-sm font-bold bg-spark-amber text-white shadow-md transition-all duration-300";
-                consultingTab.className = "flex-1 md:px-8 py-2.5 rounded-full text-sm font-semibold text-gray-500 hover:text-verta-navy transition-all duration-300";
-                
-                // Content - Swap Portals
-                consultingPortal.classList.add('hidden');
-                coursesPortal.classList.remove('hidden');
-
-                // Content - Update Hero
-                badge.innerText = "MindSpark CodeForge Academy";
-                badge.className = "inline-block bg-spark-amber/10 text-spark-amber font-bold text-xs md:text-sm px-5 py-2 rounded-full mb-6 tracking-wide border border-spark-amber/20";
-                title.innerHTML = 'Forge Your Career. <br class="hidden md:block"> <span class="gradient-spark">Master the Code.</span>';
-                desc.innerText = "Immersive real-time project mastery designed for B.Tech students and IT professionals aiming for elite senior engineering roles.";
-            } else {
-                // UI - Switch Tabs
-                consultingTab.className = "flex-1 md:px-8 py-2.5 rounded-full text-sm font-bold bg-verta-navy text-white shadow-md transition-all duration-300";
-                coursesTab.className = "flex-1 md:px-8 py-2.5 rounded-full text-sm font-semibold text-gray-500 hover:text-verta-navy transition-all duration-300";
-                
-                // Content - Swap Portals
-                consultingPortal.classList.remove('hidden');
-                coursesPortal.classList.add('hidden');
-
-                // Content - Update Hero
-                badge.innerText = "Enterprise Cloud Consulting";
-                badge.className = "inline-block bg-verta-sky/10 text-verta-sky font-bold text-xs md:text-sm px-5 py-2 rounded-full mb-6 tracking-wide border border-verta-sky/20";
-                title.innerHTML = 'Next-Gen Infrastructure. <br class="hidden md:block"> <span class="gradient-spark">Global Standards.</span>';
-                desc.innerText = "Verta Cloud delivers robust architecture and digital strategy to help your enterprise scale with zero friction.";
-            }
-            
-            // Smooth Scroll to Top on switch
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function showSection(sectionId, element) {
+            document.querySelectorAll('section').forEach(sec => sec.classList.remove('active-section'));
+            document.getElementById(sectionId).classList.add('active-section');
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            element.classList.add('active');
+            window.scrollTo(0, 0);
+            if (window.innerWidth < 1024) toggleMobileMenu();
         }
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+
         function toggleModal() {
             const modal = document.getElementById('requestModal');
             modal.classList.toggle('hidden');
-            // Prevent scrolling when modal is open
             document.body.classList.toggle('overflow-hidden');
         }
     </script>
-    <div id="requestModal" class="fixed inset-0 z-[100] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-4xl max-h-[90vh] rounded-[40px] shadow-2xl relative overflow-hidden">
-        <button onclick="toggleModal()" class="absolute top-6 right-6 text-gray-400 hover:text-verta-navy z-10">
-            <i class="fas fa-times text-2xl"></i>
-        </button>
-        
-        <div class="h-full overflow-y-auto p-4">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeuXFeSXg2fEiZK6aWgJA6bvNyqLKqbidzF8_0wmNuQmAY4NA/viewform?usp=header" 
-                    width="100%" height="800" frameborder="0">Loading…</iframe>
-        </div>
-    </div>
-</div>
 </body>
 </html>
